@@ -1,0 +1,40 @@
+name: Terraform Build (CI)
+run-name: Build run by ${{ github.actor }} on ${{ github.ref_name }}
+
+on:
+  push:
+    branches:
+      - 'feature/**'              # Triggers on any push to branches starting with 'feature/'
+      - 'bug/**'                  # Triggers on any push to branches starting with 'bug/'
+    paths-ignore:
+      - 'README.md'               # Ignore workflow if README.md is changed
+      - '.github/**'              # Ignore workflow if files in .github directory are changed
+      - 'CODEOWNERS'              # Ignore workflow if CODEOWNERS file is changed
+      - 'LICENSE'                 # Ignore workflow if LICENSE file is changed
+      - 'VERSION'                 # Ignore workflow if VERSION file is changed
+      - 'CHANGELOG.md'            # Ignore workflow if CHANGELOG.md file is changed
+      - 'CODE_OF_CONDUCT.md'      # Ignore workflow if CODE_OF_CONDUCT.md file is changed
+      - 'CONTRIBUTING.md'         # Ignore workflow if CONTRIBUTING.md file is changed
+      - '*.sh'                    # Ignore workflow if shell scripts are changed
+      - '*.txt'                   # Ignore workflow if text files are changed
+      - '*.json'                  # Ignore workflow if JSON files are changed
+      - '.gitignore'              # Ignore workflow if .gitignore file is changed
+      - '.editorconfig'           # Ignore workflow if .editorconfig file is changed
+      - '.pre-commit-config.yaml' # Ignore workflow if .pre-commit-config.yaml is are changed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  terraform-ci:
+    name: CI
+    uses: subhamay-bhattacharyya-gha/tf-ci-reusable-wf/.github/workflows/ci.yaml@main
+    with:
+      environment: "ci"
+      terraform-dir: "tf"
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
+      infracost-api-key: ${{ secrets.INFRACOST_API_KEY }}
+      infracost-gist-id: ${{ secrets.INFRACOST_GIST_ID }}

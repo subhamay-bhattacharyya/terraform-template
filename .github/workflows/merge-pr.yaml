@@ -1,0 +1,21 @@
+name: Merge Pull Request
+run-name: Merge run by ${{ github.actor }} on ${{ github.ref_name }}
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  terraform-merge-ci:
+    if: github.event.pull_request.merged == true
+    uses: subhamay-bhattacharyya-gha/tf-cd-reusable-wf/.github/workflows/pr-merge.yaml@feature/GHA-0001-initial-release
+    with:
+      environment: "ci"
+      terraform-dir: "tf"
+      tf-vars-file: "terraform.tfvars"
+      ci-pipeline: true
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
+      infracost-api-key: ${{ secrets.INFRACOST_API_KEY }}
+      infracost-gist-id: ${{ secrets.INFRACOST_GIST_ID }}
