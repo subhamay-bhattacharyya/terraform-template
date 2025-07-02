@@ -18,5 +18,12 @@ resource "aws_s3_bucket" "s3_bucket" {
   tags = {
     environment          = var.environment-name
     Owner                = "subhamay.aws@gmail.com"
+    git_commit           = "6d168a8c28fa982f7527dde045a69499cca0dce5"
+    git_file             = "tf/main.tf"
+    git_last_modified_at = "2025-07-02 02:23:06"
+    git_last_modified_by = "142895397+bsubhamay@users.noreply.github.com"
+    git_modifiers        = "142895397+bsubhamay"
+    git_org              = "subhamay-bhattacharyya"
+    git_repo             = "terraform-template"
   }
 }
