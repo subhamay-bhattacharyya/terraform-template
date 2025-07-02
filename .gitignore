@@ -81,3 +81,7 @@ dist/
 .env.production
 .env.test
 
+# Devcontainer files
+awscliv2.zip
+LICENSE.txt
+aws/*
