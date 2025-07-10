@@ -3,7 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "./install-tools.sh --tools=all > /tmp/post-create.log 2>&1",
+  "postCreateCommand": "/usr/local/bin/install-tools.sh --tools=all > /tmp/post-create.log 2>&1",
   "customizations": {
     "vscode": {
       "extensions": [
