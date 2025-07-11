@@ -1,4 +1,4 @@
-name: Terraform Build (CI)
+name: Terraform CI
 run-name: Build run by ${{ github.actor }} on ${{ github.ref_name }}
 
 on:
@@ -6,6 +6,8 @@ on:
     branches:
       - 'feature/**'              # Triggers on any push to branches starting with 'feature/'
       - 'bug/**'                  # Triggers on any push to branches starting with 'bug/'
+      - 'main'                    # Triggers on any push to the 'main' branch
+    tags-ignore: ['**']           # Triggers on any push to branches, but ignores tags
     paths-ignore:
       - 'README.md'               # Ignore workflow if README.md is changed
       - '.github/**'              # Ignore workflow if files in .github directory are changed
