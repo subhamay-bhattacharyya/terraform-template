@@ -1,4 +1,4 @@
-name: Terraform Build (CI)
+name: Terraform CI
 run-name: Build run by ${{ github.actor }} on ${{ github.ref_name }}
 
 on:
@@ -6,6 +6,9 @@ on:
     branches:
       - 'feature/**'              # Triggers on any push to branches starting with 'feature/'
       - 'bug/**'                  # Triggers on any push to branches starting with 'bug/'
+      - 'main'                    # Triggers on any push to the 'main' branch
+    tags-ignore:
+      - '***'                     # Requires a tag to be pushed, but ignores all tags
     paths-ignore:
       - 'README.md'               # Ignore workflow if README.md is changed
       - '.github/**'              # Ignore workflow if files in .github directory are changed
@@ -30,7 +33,7 @@ permissions:
 jobs:
   terraform-ci:
     name: CI
-    uses: subhamay-bhattacharyya-gha/tf-ci-reusable-wf/.github/workflows/ci.yaml@feature/GHA-0007-test-check-issue-branch-a
+    uses: subhamay-bhattacharyya-gha/tf-ci-reusable-wf/.github/workflows/ci.yaml@main
     with:
       environment: "ci"
       terraform-dir: "tf"
@@ -38,3 +41,6 @@ jobs:
       aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
       infracost-api-key: ${{ secrets.INFRACOST_API_KEY }}
       infracost-gist-id: ${{ secrets.INFRACOST_GIST_ID }}
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref_name }}
+    cancel-in-progress: true

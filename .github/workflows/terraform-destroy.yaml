@@ -1,5 +1,5 @@
 name: Terraform Destroy
-run-name: Terraform Destroy run by ${{ github.actor }} on ${{ github.ref_name }}
+run-name: Terraform Destroy - ${{ github.ref_name }}
 
 on:
   workflow_dispatch:
