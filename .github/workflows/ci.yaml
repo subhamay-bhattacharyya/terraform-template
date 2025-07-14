@@ -32,7 +32,7 @@ permissions:
 jobs:
   terraform-ci:
     name: CI
-    uses: subhamay-bhattacharyya-gha/tf-ci-reusable-wf/.github/workflows/ci.yaml@main
+    uses: subhamay-bhattacharyya-gha/tf-ci-reusable-wf/.github/workflows/ci.yaml@feature/GHA-0009-add-condition-for-feature
     with:
       environment: "ci"
       terraform-dir: "tf"
