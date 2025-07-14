@@ -11,7 +11,7 @@
 ## =====================================================================================================================
 
 
-bucket-name      = "subhamay-tf-template-bucket-06611-97"
+bucket-name      = "subhamay-tf-template-bucket-06611-98"
 project-name     = "gha-tmpl"
 environment-name = "devl"
 
