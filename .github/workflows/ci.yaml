@@ -40,3 +40,19 @@ jobs:
       aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
       infracost-api-key: ${{ secrets.INFRACOST_API_KEY }}
       infracost-gist-id: ${{ secrets.INFRACOST_GIST_ID }}
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: terraform-ci
+    if: github.ref == 'refs/heads/main'
+    uses: subhamay-bhattacharyya-gha/tf-relase-wf/.github/workflows/release.yaml@feature/GHA-0001-initial-release
+    with:
+      environment: "ci"
+      terraform-dir: "tf"
+    secrets:
+      aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
+      infracost-api-key: ${{ secrets.INFRACOST_API_KEY }}
+      infracost-gist-id: ${{ secrets.INFRACOST_GIST_ID }}
+  concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
