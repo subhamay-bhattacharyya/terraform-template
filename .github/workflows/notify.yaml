@@ -1,0 +1,13 @@
+name: Trigger Slack Notification
+
+on:
+  pull_request:
+    types: [opened]
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    uses: subhamay-bhattacharyya-gha/.github/workflows/slack-notify.yml@feature/GHA-0002-initial-release
+    secrets:
+      slack-webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
