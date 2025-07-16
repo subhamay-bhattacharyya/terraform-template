@@ -1,11 +1,10 @@
-name: Terraform CI
-run-name: Build run by ${{ github.actor }} on ${{ github.ref_name }}
+name: Create
+run-name: Merge Pull Request run by ${{ github.actor }} on ${{ github.ref_name }}
 
 on:
   push:
     branches:
-      - 'feature/**'
-      - 'bug/**'
+      - 'main'
     paths-ignore:
       - 'README.md'
       - '.github/**'
@@ -28,9 +27,10 @@ permissions:
   id-token: write
 
 jobs:
-  terraform-ci:
-    name: CI
-    uses: subhamay-bhattacharyya-gha/tf-ci-reusable-wf/.github/workflows/ci.yaml@feature/GHA-0009-add-condition-for-feature
+
+  create-release:
+    name: Create Release
+    uses: subhamay-bhattacharyya-gha/tf-release-wf/.github/workflows/create-release.yaml@feature/GHA-0002-initial-release
     with:
       environment: "ci"
       terraform-dir: "tf"
@@ -38,4 +38,3 @@ jobs:
       aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
       infracost-api-key: ${{ secrets.INFRACOST_API_KEY }}
       infracost-gist-id: ${{ secrets.INFRACOST_GIST_ID }}
-
