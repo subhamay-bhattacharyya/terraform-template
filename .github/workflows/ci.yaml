@@ -43,9 +43,8 @@ jobs:
 
   create-release:
     name: Create Release
-    runs-on: ubuntu-latest
-    needs: terraform-ci
     if: github.ref == 'refs/heads/main'
+    needs: terraform-ci
     uses: subhamay-bhattacharyya-gha/tf-release-wf/.github/workflows/create-release.yaml@feature/GHA-0002-initial-release
     with:
       environment: "ci"
